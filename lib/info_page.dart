@@ -39,8 +39,9 @@ class InfoPage extends StatelessWidget {
             text: TextSpan(
               children: [
                 const TextSpan(
-                    text:
-                        'Данное приложение созданно с помощью Flutter. Ознакомиться с исходным кодом можно в '),
+                  text: 'Данное приложение созданно с помощью Flutter. Ознакомиться '
+                      'с исходным кодом можно в ',
+                ),
                 WidgetSpan(
                   child: GestureDetector(
                     onTap: () {

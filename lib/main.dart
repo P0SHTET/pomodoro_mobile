@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_mobile/AccountPage.dart';
-import 'package:pomodoro_mobile/HomePage.dart';
+import 'package:pomodoro_mobile/account_page.dart';
+import 'package:pomodoro_mobile/home_page.dart';
 
-import 'InfoPage.dart';
+import 'info_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 1;
-  final List<Widget> _widgetOptions = [
+  final List<Widget> _widgetOptions = const [
     AccountPage(),
     HomePage(),
     InfoPage(),
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         selectedItemColor: Colors.deepPurpleAccent,
         unselectedItemColor: Colors.white70,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         currentIndex: _selectedIndex,
         onTap: _onNavigationItemTapped,
       ),

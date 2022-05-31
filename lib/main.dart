@@ -57,26 +57,24 @@ class _MyHomePageState extends State<MyHomePage> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_rounded),
             label: 'Account',
-            backgroundColor: Colors.white12,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.white10,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info),
             label: 'Info',
-            backgroundColor: Colors.white10,
           )
         ],
         selectedItemColor: Colors.deepPurpleAccent,
         unselectedItemColor: Colors.white70,
+        showUnselectedLabels: false,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         currentIndex: _selectedIndex,
         onTap: _onNavigationItemTapped,

@@ -36,9 +36,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 1;
   final List<Widget> _widgetOptions = [
-    const AccountPage(),
-    const HomePage(),
-    const InfoPage(),
+    AccountPage(),
+    HomePage(),
+    InfoPage(),
   ];
 
   void _onNavigationItemTapped(int index) {

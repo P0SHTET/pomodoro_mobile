@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_mobile/account_page.dart';
-import 'package:pomodoro_mobile/home_page.dart';
-import 'package:pomodoro_mobile/info_page.dart';
+import 'package:pomodoro_mobile/pages/account_page.dart';
+import 'package:pomodoro_mobile/pages/home_page.dart';
+import 'package:pomodoro_mobile/pages/info_page.dart';
 
 void main() {
   runApp(const MyApp());

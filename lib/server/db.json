@@ -1,0 +1,25 @@
+{
+  "pomodorolist":[
+    {
+      "title": "Pomodoro 1",
+      "workHours": 0,
+      "workMinutes": 25,
+      "restHours": 0,
+      "restMinutes": 5
+    },
+    {
+      "title": "Pomodoro 2",
+      "workHours": 1,
+      "workMinutes": 0,
+      "restHours": 0,
+      "restMinutes": 20
+    },
+    {
+      "title": "Pomodoro 3",
+      "workHours": 0,
+      "workMinutes": 45,
+      "restHours": 0,
+      "restMinutes": 15
+    }
+  ]
+}

@@ -5,24 +5,25 @@ import 'package:pomodoro_mobile/pages/home_page.dart';
 import 'package:pomodoro_mobile/pages/info_page.dart';
 import 'package:pomodoro_mobile/server/rest_client.dart';
 
-RestClient? restClient = null;
+RestClient? restClient;
 
 void main() {
   final dio = Dio();
   dio.options.baseUrl = 'http://10.0.2.2:3000/';
-  dio.interceptors.add(LogInterceptor(
-    requestBody: true,
-    responseBody: true,
-  ));
+  dio.interceptors.add(
+    LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+    ),
+  );
 
   restClient = RestClient(dio);
 
-  runApp(MyApp(restClient!));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp(this.client, {Key? key}) : super(key: key);
-  final RestClient client;
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         brightness: Brightness.dark,
       ),
-      home: MyHomePage(client, title: 'Pomodoro'),
+      home: const MyHomePage(title: 'Pomodoro'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage(this.client, {Key? key, required this.title}) : super(key: key);
-  final RestClient client;
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+
   final String title;
 
   @override
@@ -48,7 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 1;
-  final List<Widget> _widgetOptions = [
+  final List<Widget> _widgetOptions = const [
     AccountPage(),
     HomePage(),
     InfoPage(),

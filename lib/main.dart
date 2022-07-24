@@ -1,9 +1,24 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:pomodoro_mobile/account_page.dart';
-import 'package:pomodoro_mobile/home_page.dart';
-import 'package:pomodoro_mobile/info_page.dart';
+import 'package:pomodoro_mobile/pages/account_page.dart';
+import 'package:pomodoro_mobile/pages/home_page.dart';
+import 'package:pomodoro_mobile/pages/info_page.dart';
+import 'package:pomodoro_mobile/server/rest_client.dart';
+
+RestClient? restClient;
 
 void main() {
+  final dio = Dio();
+  dio.options.baseUrl = 'http://10.0.2.2:3000/';
+  dio.interceptors.add(
+    LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+    ),
+  );
+
+  restClient = RestClient(dio);
+
   runApp(const MyApp());
 }
 

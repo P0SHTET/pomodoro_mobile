@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:pomodoro_mobile/pages/home/home_cubit.dart';
 
 final _nFormat = NumberFormat('00');
-final _nStyle = TextStyle(
+const _nStyle = TextStyle(
   fontSize: 48,
 );
 
@@ -18,11 +18,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<HomeCubit>();
-    return StreamBuilder<HomeState>(
-      initialData: cubit.state,
-      stream: cubit.stream,
+    return BlocBuilder<HomeCubit, HomeState>(
+      bloc: cubit,
       builder: (context, snapshot) {
-        final pomodoroList = snapshot.requireData.pomodoroList;
+        final pomodoroList = snapshot.pomodoroList;
         return Scaffold(
           body: ListView.builder(
             itemCount: pomodoroList.length,
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                           '${_nFormat.format(pom.workHours)}:${_nFormat.format(pom.workMinutes)}',
                           style: _nStyle,
                         ),
-                        Text(
+                        const Text(
                           ' - ',
                           style: _nStyle,
                         ),
@@ -47,8 +46,9 @@ class _HomePageState extends State<HomePage> {
                           style: _nStyle,
                         ),
                         ElevatedButton(
-                            onPressed: () => cubit.removePomodoro(pom.title),
-                            child: Icon(Icons.delete_forever)),
+                          onPressed: () => cubit.removePomodoro(pom.title),
+                          child: const Icon(Icons.delete_forever),
+                        ),
                       ],
                     ),
                     Row(
@@ -66,10 +66,65 @@ class _HomePageState extends State<HomePage> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: cubit.addPomodoro,
-            child: Icon(Icons.add_circle_outline),
+            child: const Icon(Icons.add_circle_outline),
           ),
         );
       },
     );
+    ;
+    // StreamBuilder<HomeState>(
+    //   initialData: cubit.state,
+    //   stream: cubit.stream,
+    //   builder: (context, snapshot) {
+    //     final pomodoroList = snapshot.requireData.pomodoroList;
+    //     return Scaffold(
+    //       body: ListView.builder(
+    //         itemCount: pomodoroList.length,
+    //         itemBuilder: (context, index) {
+    //           final pom = pomodoroList[index];
+    //           return Padding(
+    //             padding: const EdgeInsets.all(15),
+    //             child: Column(
+    //               children: [
+    //                 Row(
+    //                   children: [
+    //                     Text(
+    //                       '${_nFormat.format(pom.workHours)}:${_nFormat.format(pom.workMinutes)}',
+    //                       style: _nStyle,
+    //                     ),
+    //                     const Text(
+    //                       ' - ',
+    //                       style: _nStyle,
+    //                     ),
+    //                     Text(
+    //                       '${_nFormat.format(pom.restHours)}:${_nFormat.format(pom.restMinutes)}',
+    //                       style: _nStyle,
+    //                     ),
+    //                     ElevatedButton(
+    //                       onPressed: () => cubit.removePomodoro(pom.title),
+    //                       child: const Icon(Icons.delete_forever),
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 Row(
+    //                   children: [
+    //                     Text(
+    //                       pom.title,
+    //                       style: const TextStyle(fontSize: 20),
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ],
+    //             ),
+    //           );
+    //         },
+    //       ),
+    //       floatingActionButton: FloatingActionButton(
+    //         onPressed: cubit.addPomodoro,
+    //         child: const Icon(Icons.add_circle_outline),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }

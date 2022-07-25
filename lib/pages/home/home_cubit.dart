@@ -28,7 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
     Dio()..options.baseUrl = 'http://10.0.2.2:3000/',
   );
 
-  HomeCubit() : super(HomeState(pomodoroList: [])) {
+  HomeCubit() : super(const HomeState(pomodoroList: [])) {
     _initialize();
   }
 
@@ -39,7 +39,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void removePomodoro(String id) async {
-    var pomodoroList = state.pomodoroList;
+    var pomodoroList = state.pomodoroList.toList();
     var removablePomodoro = pomodoroList.firstWhere((element) => element.title == id);
     pomodoroList.remove(removablePomodoro);
     final newState = HomeState(pomodoroList: pomodoroList);
@@ -47,7 +47,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void addPomodoro() async {
-    var pomodoroList = state.pomodoroList;
+    var pomodoroList = state.pomodoroList.toList();
     pomodoroList.add(PomodoroDto('New Pomodoro ${pomodoroList.length + 1}', 0, 5, 0, 25));
 
     final newState = HomeState(pomodoroList: pomodoroList);

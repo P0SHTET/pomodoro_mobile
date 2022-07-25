@@ -16,6 +16,10 @@ dependencies:
 
   retrofit: '>=3.0.0 <4.0.0'
 
+  flutter_bloc: ^8.0.1
+
+  provider: ^6.0.3
+
   url_launcher: ^6.1.2
 
   fluttertoast: ^8.0.9

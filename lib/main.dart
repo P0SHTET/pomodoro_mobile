@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_mobile/pages/account_page.dart';
-import 'package:pomodoro_mobile/pages/home_page.dart';
+import 'package:pomodoro_mobile/pages/home/home_cubit.dart';
+import 'package:pomodoro_mobile/pages/home/home_page.dart';
 import 'package:pomodoro_mobile/pages/info_page.dart';
 import 'package:pomodoro_mobile/server/rest_client.dart';
 
@@ -49,9 +51,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 1;
-  final List<Widget> _widgetOptions = const [
+  final List<Widget> _widgetOptions = [
     AccountPage(),
-    HomePage(),
+    BlocProvider<HomeCubit>(
+      create: (_) => HomeCubit(),
+      child: HomePage(),
+    ),
     InfoPage(),
   ];
 

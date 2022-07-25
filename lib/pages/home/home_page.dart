@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:pomodoro_mobile/dto/pomodoro_dto.dart';
-import 'package:pomodoro_mobile/main.dart';
+import 'package:pomodoro_mobile/pages/home/home_cubit.dart';
 
 final _nFormat = NumberFormat('00');
 final _nStyle = TextStyle(
@@ -17,16 +17,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final result = restClient?.getList();
-
-    return FutureBuilder<List<PomodoroDto>>(
-      future: result,
-      builder: (BuildContext context, AsyncSnapshot<List<PomodoroDto>> snapshot) {
-        if (snapshot.hasData) {
-          return ListView.builder(
-            itemCount: snapshot.data?.length,
+    final cubit = context.read<HomeCubit>();
+    return StreamBuilder<HomeState>(
+      initialData: cubit.state,
+      stream: cubit.stream,
+      builder: (context, snapshot) {
+        final pomodoroList = snapshot.requireData.pomodoroList;
+        return Scaffold(
+          body: ListView.builder(
+            itemCount: pomodoroList.length,
             itemBuilder: (context, index) {
-              final pom = snapshot.data![index];
+              final pom = pomodoroList[index];
               return Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -45,6 +46,9 @@ class _HomePageState extends State<HomePage> {
                           '${_nFormat.format(pom.restHours)}:${_nFormat.format(pom.restMinutes)}',
                           style: _nStyle,
                         ),
+                        ElevatedButton(
+                            onPressed: () => cubit.removePomodoro(pom.title),
+                            child: Icon(Icons.delete_forever)),
                       ],
                     ),
                     Row(
@@ -59,10 +63,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-          );
-        } else {
-          return const CircularProgressIndicator();
-        }
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: cubit.addPomodoro,
+            child: Icon(Icons.add_circle_outline),
+          ),
+        );
       },
     );
   }

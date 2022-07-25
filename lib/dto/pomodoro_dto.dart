@@ -15,4 +15,9 @@ class PomodoroDto {
   factory PomodoroDto.fromJson(Map<String, dynamic> json) => _$PomodoroDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$PomodoroDtoToJson(this);
+
+  @override
+  String toString() {
+    return 'PomodoroDto{title: $title}';
+  }
 }

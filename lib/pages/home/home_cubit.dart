@@ -38,18 +38,17 @@ class HomeCubit extends Cubit<HomeState> {
     emit(newState);
   }
 
-  void removePomodoro(String id) async {
-    var pomodoroList = state.pomodoroList.toList();
-    var removablePomodoro = pomodoroList.firstWhere((element) => element.title == id);
-    pomodoroList.remove(removablePomodoro);
+  void addPomodoro() async {
+    var newPomodoro = PomodoroDto('New Pomodoro', 0, 5, 0, 25);
+    await _pomodoroClient.addPomodoro(newPomodoro);
+    final pomodoroList = await _pomodoroClient.getList();
     final newState = HomeState(pomodoroList: pomodoroList);
     emit(newState);
   }
 
-  void addPomodoro() async {
-    var pomodoroList = state.pomodoroList.toList();
-    pomodoroList.add(PomodoroDto('New Pomodoro ${pomodoroList.length + 1}', 0, 5, 0, 25));
-
+  void removePomodoro(String id) async {
+    await _pomodoroClient.removePomodoro(id);
+    final pomodoroList = await _pomodoroClient.getList();
     final newState = HomeState(pomodoroList: pomodoroList);
     emit(newState);
   }

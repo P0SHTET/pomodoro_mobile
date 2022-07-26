@@ -10,4 +10,13 @@ abstract class RestClient {
 
   @GET('pomodorolist/')
   Future<List<PomodoroDto>> getList();
+
+  @POST('pomodorolist/')
+  Future<void> addPomodoro(@Body() PomodoroDto dto);
+
+  @DELETE('pomodorolist/{id}/')
+  Future<void> removePomodoro(@Path('id') String id);
+
+  @PATCH('pomodorolist/{id}/')
+  Future<void> updatePomodoro(@Path('id') String id, @Body() PomodoroDto dto);
 }

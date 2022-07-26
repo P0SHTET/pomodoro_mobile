@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               final pom = pomodoroList[index];
               return PomodoroTile(
+                cubit: cubit,
                 dto: pom,
               );
             },
@@ -45,58 +46,93 @@ class _HomePageState extends State<HomePage> {
 }
 
 class PomodoroTile extends StatelessWidget {
-  PomodoroDto _dto;
+  final PomodoroDto _dto;
+  final HomeCubit _cubit;
 
-  PomodoroTile({
+  const PomodoroTile({
     Key? key,
     required PomodoroDto dto,
+    required HomeCubit cubit,
   })  : _dto = dto,
+        _cubit = cubit,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    '${_nFormat.format(_dto.workHours)}:${_nFormat.format(_dto.workMinutes)}',
-                    style: _nStyle,
-                  ),
-                  const Text(
-                    ' - ',
-                    style: _nStyle,
-                  ),
-                  Text(
-                    '${_nFormat.format(_dto.restHours)}:${_nFormat.format(_dto.restMinutes)}',
-                    style: _nStyle,
-                  ),
-                ],
-              ),
-              const IconButton(
-                //TODO: implements start pomodoro
-                onPressed: null,
-                icon: Icon(
-                  Icons.play_circle_outline,
-                  size: 48,
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      '${_nFormat.format(_dto.workHours)}:${_nFormat.format(_dto.workMinutes)}',
+                      style: _nStyle,
+                    ),
+                    const Text(
+                      ' - ',
+                      style: _nStyle,
+                    ),
+                    Text(
+                      '${_nFormat.format(_dto.restHours)}:${_nFormat.format(_dto.restMinutes)}',
+                      style: _nStyle,
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                _dto.title,
-                style: const TextStyle(fontSize: 20),
+                const IconButton(
+                  //TODO: implements start pomodoro
+                  onPressed: null,
+                  icon: Icon(
+                    Icons.play_circle_outline,
+                    size: 48,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  _dto.title,
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      onLongPress: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Сonfirm the action'),
+          content: const Text('Are you really going to delete this Pomodoro?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
               ),
-            ],
-          ),
-        ],
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _cubit.removePomodoro(_dto.id);
+              },
+              child: const Text(
+                'Delete',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

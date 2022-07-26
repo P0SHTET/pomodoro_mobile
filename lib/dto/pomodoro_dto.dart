@@ -1,9 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 part 'pomodoro_dto.g.dart';
 
 @JsonSerializable()
 class PomodoroDto {
+  String id = const Uuid().v1();
   String title = 'New Pomodoro';
   int workHours = 0;
   int workMinutes = 25;

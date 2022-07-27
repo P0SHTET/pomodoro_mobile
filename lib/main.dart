@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_mobile/pages/account_page.dart';
-import 'package:pomodoro_mobile/pages/home/home_cubit.dart';
 import 'package:pomodoro_mobile/pages/home/home_page.dart';
 import 'package:pomodoro_mobile/pages/info_page.dart';
 import 'package:pomodoro_mobile/server/rest_client.dart';
@@ -35,28 +33,25 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         brightness: Brightness.dark,
       ),
-      home: const MyHomePage(title: 'Pomodoro'),
+      home: const MainWindow(title: 'Pomodoro'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class MainWindow extends StatefulWidget {
+  const MainWindow({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainWindow> createState() => _MainWindowState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainWindowState extends State<MainWindow> {
   int _selectedIndex = 1;
-  final List<Widget> _widgetOptions = [
+  final List<Widget> _widgetOptions = const [
     AccountPage(),
-    BlocProvider<HomeCubit>(
-      create: (_) => HomeCubit(),
-      child: HomePage(),
-    ),
+    HomePage(),
     InfoPage(),
   ];
 

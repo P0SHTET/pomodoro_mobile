@@ -18,7 +18,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<HomeCubit>();
+    final cubit = HomeCubit();
+    cubit.updatePomodoros();
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: cubit,
       builder: (context, snapshot) {
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               final pom = pomodoroList[index];
               return PomodoroTile(
-                cubit: cubit,
+                onLongPressApply: cubit.removePomodoro,
                 dto: pom,
               );
             },
@@ -47,14 +48,14 @@ class _HomePageState extends State<HomePage> {
 
 class PomodoroTile extends StatelessWidget {
   final PomodoroDto _dto;
-  final HomeCubit _cubit;
+  final ValueSetter<String>? _onLongPressApply;
 
   const PomodoroTile({
     Key? key,
     required PomodoroDto dto,
-    required HomeCubit cubit,
+    required ValueSetter<String>? onLongPressApply,
   })  : _dto = dto,
-        _cubit = cubit,
+        _onLongPressApply = onLongPressApply,
         super(key: key);
 
   @override
@@ -107,7 +108,7 @@ class PomodoroTile extends StatelessWidget {
       onLongPress: () => showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Сonfirm the action'),
+          title: const Text('Confirm the action'),
           content: const Text('Are you really going to delete this Pomodoro?'),
           actions: [
             TextButton(
@@ -122,7 +123,7 @@ class PomodoroTile extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                _cubit.removePomodoro(_dto.id);
+                _onLongPressApply!(_dto.id);
               },
               child: const Text(
                 'Delete',

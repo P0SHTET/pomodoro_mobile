@@ -23,7 +23,7 @@ class HomeState extends Equatable {
 }
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(const HomeState(pomodoroList: [])) {}
+  HomeCubit() : super(const HomeState(pomodoroList: []));
 
   Future<void> updatePomodoros() async {
     final pomodoroList = await restClient!.getList();
@@ -40,6 +40,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   void removePomodoro(String id) async {
     await restClient!.removePomodoro(id);
+
+    await updatePomodoros();
+  }
+
+  void updatePomodoro(PomodoroDto dto) async {
+    await restClient!.updatePomodoro(dto.id, dto);
 
     await updatePomodoros();
   }

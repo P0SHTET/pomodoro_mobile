@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pomodoro_mobile/dto/pomodoro_dto.dart';
 import 'package:pomodoro_mobile/pages/home/home_cubit.dart';
+import 'package:pomodoro_mobile/pages/pomodoro/pomodoro_window.dart';
 
 final _nFormat = NumberFormat('00');
 const _nStyle = TextStyle(
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
               final pom = pomodoroList[index];
               return PomodoroTile(
                 onLongPressApply: cubit.removePomodoro,
+                pomodoroChanged: cubit.updatePomodoro,
                 dto: pom,
               );
             },
@@ -38,7 +40,12 @@ class _HomePageState extends State<HomePage> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: cubit.addPomodoro,
-            child: const Icon(Icons.add_circle_outline),
+            backgroundColor: Colors.transparent,
+            child: const Icon(
+              Icons.add_circle,
+              color: Colors.deepPurpleAccent,
+              size: 56,
+            ),
           ),
         );
       },
@@ -49,13 +56,16 @@ class _HomePageState extends State<HomePage> {
 class PomodoroTile extends StatelessWidget {
   final PomodoroDto _dto;
   final ValueSetter<String>? _onLongPressApply;
+  final ValueSetter<PomodoroDto>? _pomodoroChanged;
 
   const PomodoroTile({
     Key? key,
     required PomodoroDto dto,
     required ValueSetter<String>? onLongPressApply,
+    required ValueSetter<PomodoroDto>? pomodoroChanged,
   })  : _dto = dto,
         _onLongPressApply = onLongPressApply,
+        _pomodoroChanged = pomodoroChanged,
         super(key: key);
 
   @override
@@ -135,6 +145,17 @@ class PomodoroTile extends StatelessWidget {
           ],
         ),
       ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PomodoroWindow(
+              pomodoroDto: _dto,
+              pomodoroChanged: _pomodoroChanged!,
+            ),
+          ),
+        );
+      },
     );
   }
 }

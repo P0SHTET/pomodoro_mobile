@@ -2,16 +2,16 @@
   "pomodorolist": [
     {
       "id": "c16707d0-0ccc-11ed-9a93-3b633b9bc007",
-      "title": "New Pomodoro",
-      "workHours": 0,
-      "workMinutes": 25,
+      "title": " diot",
+      "workHours": 1,
+      "workMinutes": 30,
       "restHours": 0,
-      "restMinutes": 5
+      "restMinutes": 30
     },
     {
       "id": "0be501e0-0ccd-11ed-9a93-3b633b9bc007",
       "title": "New Pomodoro",
-      "workHours": 0,
+      "workHours": 6,
       "workMinutes": 25,
       "restHours": 0,
       "restMinutes": 5
@@ -22,11 +22,11 @@
       "workHours": 0,
       "workMinutes": 25,
       "restHours": 0,
-      "restMinutes": 5
+      "restMinutes": 11
     },
     {
       "id": "d2d8c400-0d66-11ed-863e-f9e49c96f20c",
-      "title": "New Pomodoro",
+      "title": "New Pomodor22o",
       "workHours": 0,
       "workMinutes": 25,
       "restHours": 0,

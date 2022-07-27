@@ -21,6 +21,7 @@ dependencies:
   fluttertoast: ^8.0.9
   cupertino_icons: ^1.0.2
   json_serializable: ^6.2.0
+  numberpicker: ^2.1.1
   uuid: ^3.0.6
 
 dev_dependencies:
